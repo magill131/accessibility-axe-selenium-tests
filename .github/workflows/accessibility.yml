@@ -1,0 +1,39 @@
+name: Accessibility Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  axe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run accessibility scans
+        run: pytest
+
+      - name: Show summary in the job page
+        if: always()
+        run: |
+          if [ -f reports/accessibility-summary.md ]; then
+            cat reports/accessibility-summary.md >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Upload reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: accessibility-reports
+          path: reports/
+          if-no-files-found: ignore

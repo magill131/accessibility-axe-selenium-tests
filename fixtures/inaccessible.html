@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<!-- Deliberately broken sample page. Each problem below is one WCAG failure that axe-core reports. -->
+<html>
+<head>
+  <meta charset="utf-8">
+  <!-- Problem: no <title> (document-title) and no lang attribute on <html> (html-has-lang) -->
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2rem; }
+    .faint { color: #aaaaaa; background: #ffffff; }
+  </style>
+</head>
+<body>
+  <!-- Problem: light grey text on white fails the contrast minimum (color-contrast) -->
+  <p class="faint">Light grey text on a white background is hard to read.</p>
+
+  <!-- Problem: image with no alternative text (image-alt) -->
+  <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+
+  <!-- Problem: link with no text or accessible name (link-name) -->
+  <a href="#top"><span></span></a>
+
+  <!-- Problem: button with no text or accessible name (button-name) -->
+  <button type="button"></button>
+
+  <!-- Problem: text field with no label (label) -->
+  <form action="#">
+    <input id="name" name="name" type="text">
+  </form>
+
+  <h1>Sample page</h1>
+</body>
+</html>
